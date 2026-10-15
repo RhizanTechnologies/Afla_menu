@@ -1,51 +1,53 @@
 "use client";
 
 import React from "react";
-import { UtensilsCrossed, RotateCcw } from "lucide-react";
+import { Utensils, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface EmptyStateProps {
   searchQuery: string;
-  selectedTag: string;
+  selectedFilter: string;
   onReset: () => void;
+  language: "en" | "am";
 }
 
 export function EmptyState({
   searchQuery,
-  selectedTag,
+  selectedFilter,
   onReset,
+  language,
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-16 px-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border border-dashed border-zinc-300 dark:border-zinc-800 my-8">
-      <div className="p-4 rounded-full bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 mb-4 ring-8 ring-orange-50 dark:ring-orange-950/20">
-        <UtensilsCrossed className="w-8 h-8" />
+    <div className="flex flex-col items-center justify-center text-center py-16 px-4 bg-white rounded-3xl border border-[#EEE9E2] my-6">
+      <div className="w-12 h-12 rounded-full bg-[#F3EFE9] flex items-center justify-center text-[#F28C28] mb-3">
+        <Utensils className="w-6 h-6" />
       </div>
 
-      <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2 font-serif">
-        No Dishes Found
+      <h3 className="text-base font-semibold text-[#2B2118] mb-1">
+        {language === "am" ? "ምንም ምግብ አልተገኘም" : "No dishes found"}
       </h3>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-md mb-6 leading-relaxed">
-        {searchQuery ? (
-          <>
-            No items matched <span className="font-semibold text-zinc-800 dark:text-zinc-200">&ldquo;{searchQuery}&rdquo;</span>
-            {selectedTag !== "all" && (
-              <> with tag <span className="font-semibold text-zinc-800 dark:text-zinc-200">{selectedTag}</span></>
-            )}. Try searching for <span className="italic">chicken, burger, pizza, lasagna, tibs</span>, or clear filters.
-          </>
-        ) : (
-          <>No items found under the selected dietary filter. Try selecting &ldquo;All Items&rdquo; or exploring other categories.</>
-        )}
+      <p className="text-xs text-[#7A6F66] max-w-xs mb-5">
+        {searchQuery
+          ? language === "am"
+            ? `ለ "${searchQuery}" የተገኘ ምግብ የለም።`
+            : `We couldn't find any dish matching "${searchQuery}".`
+          : language === "am"
+          ? "በዚህ ማጣሪያ ምንም አይነት ምግብ አልተገኘም።"
+          : "No items match your selected dietary filter."}
       </p>
 
       <Button
-        variant="primary-orange"
+        variant="outline"
+        size="sm"
         onClick={onReset}
-        className="gap-2 text-sm font-semibold shadow-md"
+        className="gap-2 text-xs"
       >
-        <RotateCcw className="w-4 h-4" />
-        Reset All Filters & Search
+        <RotateCcw className="w-3.5 h-3.5" />
+        <span>{language === "am" ? "ሁሉንም አሳይ" : "Reset filters"}</span>
       </Button>
     </div>
   );
 }
+
+export default EmptyState;

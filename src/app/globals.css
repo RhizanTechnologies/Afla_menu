@@ -1,47 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
-  --card: #ffffff;
-  --card-foreground: #1c1917;
-  --primary: #ea580c;
-  --primary-foreground: #ffffff;
-  --muted: #f5f5f4;
-  --muted-foreground: #78716c;
-  --border: #e7e5e4;
-  --ring: #ea580c;
+@theme {
+  --font-sans: var(--font-sans), var(--font-ethiopic), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ethiopic: var(--font-ethiopic), var(--font-sans), sans-serif;
+  --color-primary: #FF6417;
+  --color-primary-foreground: #FFFFFF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09090b;
-    --foreground: #fafafa;
-    --card: #121214;
-    --card-foreground: #fafafa;
-    --primary: #f97316;
-    --primary-foreground: #ffffff;
-    --muted: #1c1917;
-    --muted-foreground: #a8a29e;
-    --border: #27272a;
-    --ring: #f97316;
-  }
+:root {
+  color-scheme: light;
+  --background: #FAF8F5;
+  --foreground: #1F1A16;
+  --card: #FFFFFF;
+  --card-foreground: #1F1A16;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F1A16;
+  --primary: #FF6417;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFF6EE;
+  --secondary-foreground: #FF6417;
+  --muted: #F4EFEA;
+  --muted-foreground: #7A6F66;
+  --accent: #FF6417;
+  --accent-foreground: #FFFFFF;
+  --destructive: #D62828;
+  --destructive-foreground: #FFFFFF;
+  --border: #F0E9E1;
+  --input: #F0E9E1;
+  --ring: #FF6417;
+  --radius: 1.25rem;
 }
 
 html {
+  color-scheme: light;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FAF8F5;
+  color: #1F1A16;
+  font-family: var(--font-sans), var(--font-ethiopic), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #FAF8F5;
+  color: #1F1A16;
+  font-family: var(--font-sans), var(--font-ethiopic), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Hide scrollbar for category and filter pills */
+/* Hide scrollbar for category pills and horizontal lists */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -51,11 +61,15 @@ body {
 }
 
 ::selection {
-  background-color: #ea580c;
-  color: #ffffff;
+  background-color: #FF6417;
+  color: #FFFFFF;
 }
 
-/* Subtle glow effects */
-.glow-orange {
-  box-shadow: 0 0 25px -5px rgba(234, 88, 12, 0.25);
+/* Premium micro shadows */
+.card-soft-shadow {
+  box-shadow: 0 1px 3px 0 rgba(31, 26, 22, 0.04), 0 4px 12px -2px rgba(31, 26, 22, 0.03);
+}
+
+.card-hover-shadow {
+  box-shadow: 0 12px 24px -6px rgba(255, 100, 23, 0.12), 0 4px 10px -2px rgba(31, 26, 22, 0.04);
 }

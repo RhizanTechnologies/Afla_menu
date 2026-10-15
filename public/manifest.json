@@ -1,0 +1,16 @@
+{
+  "name": "AFLA Restaurant Menu",
+  "short_name": "AFLA Menu",
+  "description": "AFLA Restaurant Digital Menu — Pizza · Burger · Chicken",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#F28C28",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

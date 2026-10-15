@@ -3,7 +3,7 @@ export type MenuCategoryId =
   | "mixed-grill"
   | "burger"
   | "sandwich"
-  | "shawarma-wrap"
+  | "shawarma"
   | "pasta-rice"
   | "pizza"
   | "fish"
@@ -14,8 +14,7 @@ export interface CategoryInfo {
   id: MenuCategoryId;
   name: string;
   amharicName: string;
-  description: string;
-  iconName: string;
+  icon: string;
 }
 
 export type DietaryTag =
@@ -35,7 +34,6 @@ export interface MenuItem {
   category: MenuCategoryId;
   price: number;
   description?: string;
-  ingredients?: string[];
   side?: string;
   image?: string;
   isPopular?: boolean;
@@ -50,146 +48,117 @@ export const CATEGORIES: CategoryInfo[] = [
     id: "chicken",
     name: "Chicken",
     amharicName: "ዶሮ / ቸክን",
-    description: "Crispy fried, golden roasted, and seasoned chicken specialties",
-    iconName: "Drumstick",
+    icon: "drumstick",
   },
   {
     id: "mixed-grill",
     name: "Mixed Grill",
     amharicName: "ሚክስድ ግሪል",
-    description: "Sizzling meat tibs and oven-baked layered lasagna",
-    iconName: "Flame",
+    icon: "utensils",
   },
   {
     id: "burger",
     name: "Burger",
     amharicName: "በርገር",
-    description: "Flame-grilled gourmet beef and chicken patties with house sauces",
-    iconName: "Sandwich",
+    icon: "sandwich",
   },
   {
     id: "sandwich",
     name: "Sandwich",
     amharicName: "ሳንድዊች",
-    description: "Freshly assembled layered sandwiches with premium fillings",
-    iconName: "Utensils",
+    icon: "sandwich",
   },
   {
-    id: "shawarma-wrap",
+    id: "shawarma",
     name: "Shawarma Wrap",
     amharicName: "ሻዋርማ እና ሮል",
-    description: "Toasted flatbread rolled with spiced meats, veggies and garlic sauce",
-    iconName: "Wrap",
+    icon: "wrap",
   },
   {
     id: "pasta-rice",
     name: "Pasta & Rice",
     amharicName: "ፓስታ እና ሩዝ",
-    description: "Al dente Italian pasta dishes and fragrant seasoned rice plates",
-    iconName: "Soup",
+    icon: "soup",
   },
   {
     id: "pizza",
     name: "Pizza",
     amharicName: "ፒዛ",
-    description: "Stone-baked hand-stretched pizzas with gooey mozzarella and fresh herbs",
-    iconName: "Pizza",
+    icon: "pizza",
   },
   {
     id: "fish",
     name: "Fish",
     amharicName: "አሳ",
-    description: "Fresh Nile perch and Tilapia fillets prepared grilled, goulash or cutlet",
-    iconName: "Fish",
+    icon: "fish",
   },
   {
     id: "salad",
     name: "Salad",
     amharicName: "ሰላጣ",
-    description: "Vibrant crisp garden greens, tossed seafood, and seasonal fruit bowls",
-    iconName: "Salad",
+    icon: "salad",
   },
   {
     id: "signature-drinks",
     name: "Signature Drinks",
-    amharicName: "መጠጦች",
-    description: "Artisan cold brews, sparkling tonics, and refreshing herbal infusions",
-    iconName: "Coffee",
+    amharicName: "ልዩ መጠጦች",
+    icon: "drink",
   },
 ];
 
-/**
- * Format currency in ETB:
- * - Whole numbers have no decimals (e.g. 4885 -> "ETB 4,885", 685 -> "ETB 685")
- * - Decimal numbers retain their cents (e.g. 549.79 -> "ETB 549.79")
- */
-export function formatPrice(price: number): string {
-  const hasDecimals = price % 1 !== 0;
-  const formatted = price.toLocaleString("en-US", {
-    minimumFractionDigits: hasDecimals ? 2 : 0,
-    maximumFractionDigits: 2,
-  });
-  return `ETB ${formatted}`;
-}
-
 export const MENU_ITEMS: MenuItem[] = [
-  // ==========================================
-  // CHICKEN
-  // ==========================================
+  // ----------------------------------------------------
+  // CHICKEN (11 items)
+  // ----------------------------------------------------
   {
-    id: "chicken-full-fried",
+    id: "full-fried-chicken",
     name: "Full Fried Chicken",
     amharicName: "ፍራይድ ቸክን",
     category: "chicken",
     price: 4885,
-    description: "Crispy whole golden fried chicken seasoned with house spices.",
     side: "Side fries and sauce",
-    image: "/images/fried-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
-    id: "chicken-half-fried",
+    id: "half-fried-chicken",
     name: "Half Fried Chicken",
     amharicName: "ፍራይድ ቸክን",
     category: "chicken",
     price: 2485,
-    description: "Half portion of our signature golden fried chicken.",
     side: "Side fries and sauce",
-    image: "/images/fried-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
-    id: "chicken-8-piece",
+    id: "fried-chicken-8-piece",
     name: "Fried Chicken, 8 piece",
     amharicName: "ፍራይድ ቸክን",
     category: "chicken",
     price: 1995,
-    description: "Eight juicy pieces of deep-fried seasoned chicken perfection.",
     side: "Side fries and sauce",
-    image: "/images/fried-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     isPopular: true,
     tags: ["Popular", "Chicken"],
   },
   {
-    id: "chicken-6-piece",
+    id: "fried-chicken-6-piece",
     name: "Fried Chicken, 6 piece",
     amharicName: "ፍራይድ ቸክን",
     category: "chicken",
     price: 1680,
-    description: "Six pieces of crunchy, tender marinated fried chicken.",
     side: "Side fries and sauce",
-    image: "/images/fried-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
-    id: "chicken-4-piece",
+    id: "fried-chicken-4-piece",
     name: "Fried Chicken, 4 piece",
     amharicName: "ፍራይድ ቸክን",
     category: "chicken",
     price: 1095,
-    description: "Four crispy pieces of freshly fried chicken.",
     side: "Side fries and sauce",
-    image: "/images/fried-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -198,9 +167,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "chicken",
     price: 898,
     description: "Chicken, egg, flour, bread crumbs, side rice or salad",
-    ingredients: ["Chicken", "Egg", "Flour", "Bread crumbs"],
     side: "Side rice or salad",
-    image: "/images/chicken-cutlet.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -210,9 +178,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "chicken",
     price: 1050,
     description: "Chicken, tomato, rosemary, soy sauce, side rice or salad",
-    ingredients: ["Chicken", "Tomato", "Rosemary", "Soy sauce"],
     side: "Side rice or salad",
-    image: "/images/chicken-breast.jpg",
     tags: ["Chicken"],
   },
   {
@@ -221,8 +187,7 @@ export const MENU_ITEMS: MenuItem[] = [
     amharicName: "ቸክን ሌግ",
     category: "chicken",
     price: 1050,
-    description: "Three succulent chicken drumsticks seasoned and roasted to perfection.",
-    image: "/images/chicken-leg.jpg",
+    image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -232,44 +197,38 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "chicken",
     price: 1149,
     description: "Breaded chicken, egg, flour, side fries or salad",
-    ingredients: ["Breaded chicken", "Egg", "Flour"],
     side: "Side fries or salad",
-    image: "/images/chicken-nuggets.jpg",
     tags: ["Chicken"],
   },
   {
-    id: "chicken-full-roasted",
+    id: "full-roasted-chicken",
     name: "Full Roasted Chicken",
     category: "chicken",
     price: 3350,
-    description: "Whole oven-roasted chicken herb-infused with juicy tender skin.",
-    image: "/images/roasted-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
-    id: "chicken-half-roasted",
+    id: "half-roasted-chicken",
     name: "Half Roasted Chicken",
     category: "chicken",
     price: 1670,
-    description: "Half oven-roasted seasoned chicken, slow-cooked to seal in juices.",
-    image: "/images/roasted-chicken.jpg",
+    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
 
-  // ==========================================
-  // MIXED GRILL
-  // ==========================================
+  // ----------------------------------------------------
+  // MIXED GRILL (3 items)
+  // ----------------------------------------------------
   {
-    id: "mixed-chicken-tibs",
+    id: "chicken-tibs",
     name: "Chicken Tibs",
     amharicName: "ቺክን ትብስ",
     category: "mixed-grill",
     price: 895,
-    description: "Sautéed marinated chicken cubes with onions, garlic, and sliced green peppers.",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop",
     isPopular: true,
-    isSpicy: true,
-    image: "/images/chicken-tibs.jpg",
-    tags: ["Popular", "Spicy", "Chicken"],
+    tags: ["Popular", "Chicken"],
   },
   {
     id: "mixed-grill-lasagna",
@@ -277,9 +236,8 @@ export const MENU_ITEMS: MenuItem[] = [
     amharicName: "ሚክስድ ግሪል በላዛኛ",
     category: "mixed-grill",
     price: 1500,
-    description: "Decadent layered pasta baked with grilled meats, béchamel, and rich melted cheese.",
-    image: "/images/lasagna.jpg",
-    tags: ["Beef", "Chicken"],
+    image: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?q=80&w=800&auto=format&fit=crop",
+    tags: ["Beef"],
   },
   {
     id: "lasagna",
@@ -287,444 +245,344 @@ export const MENU_ITEMS: MenuItem[] = [
     amharicName: "ላዛኛ",
     category: "mixed-grill",
     price: 1200,
-    description: "Traditional Italian baked pasta layered with seasoned ground beef and tomato sauce.",
-    image: "/images/lasagna.jpg",
+    image: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
 
-  // ==========================================
-  // BURGER
-  // ==========================================
+  // ----------------------------------------------------
+  // BURGER (6 items) — User provided Unsplash
+  // ----------------------------------------------------
   {
-    id: "burger-afla-special",
+    id: "afla-special-burger",
     name: "Afla Special Burger",
     category: "burger",
     price: 755,
-    description: "Grilled beef patty, sliced cheese, beef mortadella, fried egg, tomato, lettuce, mayonnaise",
-    ingredients: [
-      "Grilled beef patty",
-      "Sliced cheese",
-      "Beef mortadella",
-      "Fried egg",
-      "Tomato",
-      "Lettuce",
-      "Mayonnaise",
-    ],
+    description:
+      "Grilled beef patty, sliced cheese, beef mortadella, fried egg, tomato, lettuce, mayonnaise",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     isPopular: true,
-    image: "/images/afla-special-burger.jpg",
     tags: ["Popular", "Beef"],
   },
   {
-    id: "burger-chicken-special",
+    id: "chicken-special-burger",
     name: "Chicken Special Burger",
     category: "burger",
     price: 755,
-    description: "Grilled patty, sliced cheese, beef mortadella, fried egg, tomato, lettuce",
-    ingredients: [
-      "Grilled chicken patty",
-      "Sliced cheese",
-      "Beef mortadella",
-      "Fried egg",
-      "Tomato",
-      "Lettuce",
-    ],
-    image: "/images/chicken-burger.jpg",
+    description:
+      "Grilled patty, sliced cheese, beef mortadella, fried egg, tomato, lettuce",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Chicken", "Beef"],
   },
   {
-    id: "burger-double",
+    id: "double-burger",
     name: "Double Burger",
     category: "burger",
     price: 720,
     description: "Grilled beef patty, sliced cheese, lettuce, tomato, mayonnaise",
-    ingredients: [
-      "Double grilled beef patty",
-      "Sliced cheese",
-      "Lettuce",
-      "Tomato",
-      "Mayonnaise",
-    ],
-    image: "/images/double-burger.jpg",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Beef"],
   },
   {
-    id: "burger-bbq",
+    id: "bbq-burger",
     name: "BBQ Burger",
     category: "burger",
     price: 549.79,
     description: "Grilled beef patty, sliced cheese, lettuce, BBQ sauce",
-    ingredients: [
-      "Grilled beef patty",
-      "Sliced cheese",
-      "Lettuce",
-      "BBQ sauce",
-    ],
-    image: "/images/bbq-burger.jpg",
     tags: ["Beef"],
   },
   {
-    id: "burger-cheese",
+    id: "cheese-burger",
     name: "Cheese Burger",
     category: "burger",
     price: 575,
-    description: "Grilled beef patty, sliced cheese, lettuce, fresh tomato, mayonnaise",
-    ingredients: [
-      "Grilled beef patty",
-      "Sliced cheese",
-      "Lettuce",
-      "Fresh tomato",
-      "Mayonnaise",
-    ],
-    image: "/images/cheese-burger.jpg",
+    description:
+      "Grilled beef patty, sliced cheese, lettuce, fresh tomato, mayonnaise",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Beef"],
   },
   {
-    id: "burger-beef",
+    id: "beef-burger",
     name: "Beef Burger",
     category: "burger",
     price: 545,
     description: "Two beef patties, salad, tomato, onion, pepper",
-    ingredients: [
-      "Two beef patties",
-      "Salad",
-      "Tomato",
-      "Onion",
-      "Pepper",
-    ],
-    image: "/images/beef-burger.jpg",
     tags: ["Beef"],
   },
 
-  // ==========================================
-  // SANDWICH
-  // ==========================================
+  // ----------------------------------------------------
+  // SANDWICH (5 items) — User provided Unsplash
+  // ----------------------------------------------------
   {
-    id: "sandwich-egg",
+    id: "egg-sandwich",
     name: "Egg Sandwich",
     category: "sandwich",
     price: 389,
     description: "Topped with fried egg, lettuce, fresh tomato, mayonnaise",
-    ingredients: ["Fried egg", "Lettuce", "Fresh tomato", "Mayonnaise"],
-    image: "/images/egg-sandwich.jpg",
-    tags: ["Vegetarian"],
-    isVegetarian: true,
+    tags: [],
   },
   {
-    id: "sandwich-chicken",
+    id: "chicken-sandwich",
     name: "Chicken Sandwich",
     category: "sandwich",
     price: 595,
-    description: "Grilled chicken patty, special sauce, fresh tomato, lettuce, mayonnaise",
-    ingredients: [
-      "Grilled chicken patty",
-      "Special sauce",
-      "Fresh tomato",
-      "Lettuce",
-      "Mayonnaise",
-    ],
-    image: "/images/chicken-sandwich.jpg",
+    description:
+      "Grilled chicken patty, special sauce, fresh tomato, lettuce, mayonnaise",
+    image:
+      "https://images.unsplash.com/photo-1559466273-d95e72debaf8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Chicken"],
   },
   {
-    id: "sandwich-egg-cheese",
+    id: "egg-and-cheese",
     name: "Egg and Cheese",
     category: "sandwich",
     price: 519,
-    description: "Topped with fried egg, sliced cheese, lettuce, fresh tomato, mayonnaise",
-    ingredients: ["Fried egg", "Sliced cheese", "Lettuce", "Fresh tomato", "Mayonnaise"],
-    image: "/images/egg-cheese-sandwich.jpg",
-    tags: ["Vegetarian"],
-    isVegetarian: true,
+    description:
+      "Topped with fried egg, sliced cheese, lettuce, fresh tomato, mayonnaise",
+    tags: [],
   },
   {
-    id: "sandwich-club",
+    id: "club-sandwich",
     name: "Club Sandwich",
     category: "sandwich",
     price: 720,
-    description: "Served with fries. Multi-layer toasted sandwich with chicken, boiled egg, cheese, and vegetables.",
+    description: "Served with fries",
     side: "Served with fries",
-    image: "/images/club-sandwich.jpg",
+    image:
+      "https://images.unsplash.com/photo-1559466273-d95e72debaf8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Chicken"],
   },
   {
-    id: "sandwich-vegetable",
+    id: "vegetable-sandwich",
     name: "Vegetable Sandwich",
     category: "sandwich",
     price: 350,
     description: "Mixed cooked vegetables, lettuce, fresh tomato, cucumber",
-    ingredients: ["Mixed cooked vegetables", "Lettuce", "Fresh tomato", "Cucumber"],
     isVegetarian: true,
-    image: "/images/veg-sandwich.jpg",
     tags: ["Vegetarian"],
   },
 
-  // ==========================================
-  // SHAWARMA WRAP
-  // ==========================================
+  // ----------------------------------------------------
+  // SHAWARMA WRAP (6 items)
+  // ----------------------------------------------------
   {
-    id: "wrap-special-shawarma",
+    id: "special-shawarma",
     name: "Special Shawarma",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 685,
-    description: "Grilled chicken, mozzarella cheese, cabbage, beef mortadella, onion, fresh tomato, chili",
-    ingredients: [
-      "Grilled chicken",
-      "Mozzarella cheese",
-      "Cabbage",
-      "Beef mortadella",
-      "Onion",
-      "Fresh tomato",
-      "Chili",
-    ],
+    description:
+      "Grilled chicken, mozzarella cheese, cabbage, beef mortadella, onion, fresh tomato, chili",
+    image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?q=80&w=800&auto=format&fit=crop",
     isPopular: true,
     isSpicy: true,
-    image: "/images/special-shawarma.jpg",
-    tags: ["Popular", "Spicy", "Chicken", "Beef"],
+    tags: ["Popular", "Chicken", "Beef", "Spicy"],
   },
   {
-    id: "wrap-chicken",
+    id: "chicken-wrap",
     name: "Chicken Wrap",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 595,
     description: "Grilled chicken, fresh tomato, onion, chili pepper",
-    ingredients: ["Grilled chicken", "Fresh tomato", "Onion", "Chili pepper"],
-    isSpicy: true,
-    image: "/images/chicken-wrap.jpg",
-    tags: ["Spicy", "Chicken"],
+    image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?q=80&w=800&auto=format&fit=crop",
+    tags: ["Chicken"],
   },
   {
-    id: "wrap-spicy-chicken",
+    id: "spicy-chicken-wrap",
     name: "Spicy Chicken Wrap",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 645,
     description: "Grilled chicken, hot pepper, fresh tomato, onion, chili",
-    ingredients: ["Grilled chicken", "Hot pepper", "Fresh tomato", "Onion", "Chili"],
     isSpicy: true,
-    image: "/images/spicy-chicken-wrap.jpg",
-    tags: ["Spicy", "Chicken"],
+    image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?q=80&w=800&auto=format&fit=crop",
+    tags: ["Chicken", "Spicy"],
   },
   {
-    id: "wrap-tuna",
+    id: "tuna-wrap",
     name: "Tuna Wrap",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 570,
     description: "Light grilled tuna, fresh tomato, chili, onion",
-    ingredients: ["Light grilled tuna", "Fresh tomato", "Chili", "Onion"],
-    isSpicy: true,
-    image: "/images/tuna-wrap.jpg",
-    tags: ["Spicy", "Fish", "Tuna"],
+    tags: ["Tuna", "Fish"],
   },
   {
-    id: "wrap-beef",
+    id: "beef-wrap",
     name: "Beef Wrap",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 630,
     description: "Grilled beef, fresh tomato, chili, onion",
-    ingredients: ["Grilled beef", "Fresh tomato", "Chili", "Onion"],
-    isSpicy: true,
-    image: "/images/beef-wrap.jpg",
-    tags: ["Spicy", "Beef"],
+    tags: ["Beef"],
   },
   {
-    id: "wrap-vegetable",
+    id: "vegetable-wrap",
     name: "Vegetable Wrap",
-    category: "shawarma-wrap",
+    category: "shawarma",
     price: 460,
     description: "Mixed well-cooked vegetables",
-    ingredients: ["Mixed well-cooked seasonal vegetables"],
     isVegetarian: true,
-    image: "/images/vegetable-wrap.jpg",
     tags: ["Vegetarian"],
   },
 
-  // ==========================================
-  // PASTA & RICE
-  // ==========================================
+  // ----------------------------------------------------
+  // PASTA & RICE (8 items)
+  // ----------------------------------------------------
   {
-    id: "pasta-vegetable",
+    id: "pasta-with-vegetable",
     name: "Pasta with Vegetable",
     category: "pasta-rice",
     price: 450,
     description: "Mixed well-cooked vegetables, green pepper",
-    ingredients: ["Mixed well-cooked vegetables", "Green pepper"],
     isVegetarian: true,
-    image: "/images/pasta-veg.jpg",
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800&auto=format&fit=crop",
     tags: ["Vegetarian"],
   },
   {
-    id: "pasta-tomato-sauce",
+    id: "pasta-with-tomato-sauce",
     name: "Pasta with Tomato Sauce",
     category: "pasta-rice",
     price: 420,
     description: "Tomato sauce, green pepper, onion",
-    ingredients: ["Tomato sauce", "Green pepper", "Onion"],
     isVegetarian: true,
-    image: "/images/pasta-tomato.jpg",
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800&auto=format&fit=crop",
     tags: ["Vegetarian"],
   },
   {
-    id: "pasta-tuna",
+    id: "pasta-with-tuna",
     name: "Pasta with Tuna",
     category: "pasta-rice",
     price: 550,
     description: "Tuna, green pepper, onion, tomato sauce",
-    ingredients: ["Tuna", "Green pepper", "Onion", "Tomato sauce"],
-    image: "/images/pasta-tuna.jpg",
-    tags: ["Fish", "Tuna"],
+    tags: ["Tuna", "Fish"],
   },
   {
-    id: "pasta-meat-sauce",
+    id: "pasta-with-meat-sauce",
     name: "Pasta with Meat Sauce",
     category: "pasta-rice",
     price: 580,
     description: "Meat, green pepper, onion, Bolognese sauce",
-    ingredients: ["Minced beef", "Green pepper", "Onion", "Bolognese sauce"],
-    image: "/images/pasta-meat.jpg",
     tags: ["Beef"],
   },
   {
-    id: "rice-vegetable",
+    id: "rice-with-vegetable",
     name: "Rice with Vegetable",
     category: "pasta-rice",
     price: 420,
     description: "Mixed well-cooked vegetables, green pepper",
-    ingredients: ["Mixed well-cooked vegetables", "Green pepper"],
     isVegetarian: true,
-    image: "/images/rice-veg.jpg",
+    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop",
     tags: ["Vegetarian"],
   },
   {
-    id: "rice-tuna",
+    id: "rice-with-tuna",
     name: "Rice with Tuna",
     category: "pasta-rice",
     price: 550,
     description: "Tuna, green pepper, onion, tomato sauce",
-    ingredients: ["Tuna", "Green pepper", "Onion", "Tomato sauce"],
-    image: "/images/rice-tuna.jpg",
-    tags: ["Fish", "Tuna"],
+    tags: ["Tuna", "Fish"],
   },
   {
-    id: "rice-meat-sauce",
+    id: "rice-with-meat-sauce",
     name: "Rice with Meat Sauce",
     category: "pasta-rice",
     price: 580,
     description: "Meat, green pepper, onion, Bolognese sauce",
-    ingredients: ["Minced beef", "Green pepper", "Onion", "Bolognese sauce"],
-    image: "/images/rice-meat.jpg",
     tags: ["Beef"],
   },
   {
-    id: "rice-chicken",
+    id: "chicken-with-rice",
     name: "Chicken with Rice",
     category: "pasta-rice",
     price: 685,
     description: "Chicken, fresh tomato, onion, chili",
-    ingredients: ["Chicken", "Fresh tomato", "Onion", "Chili"],
-    isSpicy: true,
-    image: "/images/chicken-rice.jpg",
-    tags: ["Spicy", "Chicken"],
+    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop",
+    tags: ["Chicken"],
   },
 
-  // ==========================================
-  // PIZZA
-  // ==========================================
+  // ----------------------------------------------------
+  // PIZZA (7 items)
+  // ----------------------------------------------------
   {
-    id: "pizza-special",
+    id: "special-pizza",
     name: "Special Pizza",
     category: "pizza",
     price: 895,
-    description: "Tomato sauce, mozzarella cheese, minced beef, chicken, boiled egg, oregano",
-    ingredients: [
-      "Tomato sauce",
-      "Mozzarella cheese",
-      "Minced beef",
-      "Chicken",
-      "Boiled egg",
-      "Oregano",
-    ],
+    description:
+      "Tomato sauce, mozzarella cheese, minced beef, chicken, boiled egg, oregano",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
     isPopular: true,
-    image: "/images/special-pizza.jpg",
     tags: ["Popular", "Beef", "Chicken"],
   },
   {
-    id: "pizza-chicken",
+    id: "chicken-pizza",
     name: "Chicken Pizza",
     category: "pizza",
     price: 840,
     description: "Chicken topping, mozzarella cheese, beef slice",
-    ingredients: ["Chicken topping", "Mozzarella cheese", "Beef slice"],
-    image: "/images/chicken-pizza.jpg",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken", "Beef"],
   },
   {
-    id: "pizza-bbq-chicken",
+    id: "bbq-chicken-pizza",
     name: "BBQ Chicken Pizza",
     category: "pizza",
     price: 799,
     description: "BBQ sauce, mozzarella cheese, chicken topping, beef slice",
-    ingredients: ["BBQ sauce", "Mozzarella cheese", "Chicken topping", "Beef slice"],
-    image: "/images/bbq-chicken-pizza.jpg",
     tags: ["Chicken", "Beef"],
   },
   {
-    id: "pizza-meatlover",
+    id: "meatlover-pizza",
     name: "Meatlover Pizza",
     category: "pizza",
     price: 685,
     description: "Tomato sauce, beef, oregano, mozzarella cheese",
-    ingredients: ["Tomato sauce", "Seasoned beef", "Oregano", "Mozzarella cheese"],
-    image: "/images/meat-pizza.jpg",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
-    id: "pizza-tuna",
+    id: "tuna-pizza",
     name: "Tuna Pizza",
     category: "pizza",
     price: 750,
     description: "Tomato sauce, tuna, onion, oregano, mozzarella cheese",
-    ingredients: ["Tomato sauce", "Tuna", "Onion", "Oregano", "Mozzarella cheese"],
-    image: "/images/tuna-pizza.jpg",
-    tags: ["Fish", "Tuna"],
+    tags: ["Tuna", "Fish"],
   },
   {
-    id: "pizza-fasting-hot-veg",
+    id: "fasting-hot-vegetable-pizza",
     name: "Fasting Hot Vegetable Pizza",
     category: "pizza",
     price: 630,
     description: "Fasting sauce, mushroom, mixed vegetables, onion, oregano",
-    ingredients: ["Fasting sauce", "Mushroom", "Mixed vegetables", "Onion", "Oregano"],
+    isSpicy: true,
     isVegetarian: true,
     isFasting: true,
-    isSpicy: true,
-    image: "/images/fasting-pizza.jpg",
     tags: ["Vegetarian", "Fasting", "Spicy"],
   },
   {
-    id: "pizza-margherita",
+    id: "margherita-pizza",
     name: "Margherita Pizza",
     category: "pizza",
     price: 760,
     description: "Fiery sauce, mushroom, onion, oregano, cheese",
-    ingredients: ["Fiery sauce", "Mushroom", "Onion", "Oregano", "Cheese"],
-    isVegetarian: true,
     isSpicy: true,
-    image: "/images/margherita-pizza.jpg",
-    tags: ["Vegetarian", "Spicy"],
+    tags: ["Spicy"],
   },
 
-  // ==========================================
-  // FISH
-  // ==========================================
+  // ----------------------------------------------------
+  // FISH (3 items) — User provided Unsplash
+  // ----------------------------------------------------
   {
-    id: "fish-grilled-nile-perch",
+    id: "grilled-nile-perch",
     name: "Grilled Nile Perch",
     amharicName: "ግሪልድ ናይል ፐርች",
     category: "fish",
     price: 1150,
-    description: "Nile perch, flour coating, assorted vegetables, seasonal side rice or fries",
-    ingredients: ["Nile perch", "Flour coating", "Assorted vegetables"],
-    side: "Seasonal side rice or fries",
-    image: "/images/grilled-fish.jpg",
+    description:
+      "Nile perch, flour coating, assorted vegetables, seasonal side rice or fries",
+    side: "Side rice or fries",
+    image:
+      "https://images.unsplash.com/photo-1725393325387-07f0d4951528?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Fish"],
   },
   {
@@ -733,10 +591,9 @@ export const MENU_ITEMS: MenuItem[] = [
     amharicName: "አሳ ጉላሽ",
     category: "fish",
     price: 850,
-    description: "Fried fish, vegetable oil, egg-coated flour, side rice or vegetables",
-    ingredients: ["Fried fish", "Vegetable oil", "Egg-coated flour"],
+    description:
+      "Fried fish, vegetable oil, egg-coated flour, side rice or vegetables",
     side: "Side rice or vegetables",
-    image: "/images/fish-goulash.jpg",
     tags: ["Fish"],
   },
   {
@@ -745,131 +602,108 @@ export const MENU_ITEMS: MenuItem[] = [
     amharicName: "አሳ ኩትሌት",
     category: "fish",
     price: 895,
-    description: "Tilapia fish, vegetable oil, breadcrumbs, flour, side rice or vegetables",
-    ingredients: ["Tilapia fish", "Vegetable oil", "Breadcrumbs", "Flour"],
+    description:
+      "Tilapia fish, vegetable oil, breadcrumbs, flour, side rice or vegetables",
     side: "Side rice or vegetables",
-    image: "/images/fish-cutlet.jpg",
+    image:
+      "https://images.unsplash.com/photo-1725393325387-07f0d4951528?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     tags: ["Fish"],
   },
 
-  // ==========================================
-  // SALAD
-  // ==========================================
+  // ----------------------------------------------------
+  // SALAD (5 items)
+  // ----------------------------------------------------
   {
-    id: "salad-mixed",
+    id: "mixed-salad",
     name: "Mixed Salad",
     amharicName: "ሚክስድ ሳላድ",
     category: "salad",
     price: 460,
-    description: "Fresh crisp garden vegetables, ripe tomatoes, cucumbers, tossed in house dressing.",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
-    isFasting: true,
-    image: "/images/mixed-salad.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    tags: ["Vegetarian"],
   },
   {
-    id: "salad-fish",
+    id: "fish-salad",
     name: "Fish Salad",
     amharicName: "ፊሽ ሳላድ",
     category: "salad",
     price: 750,
-    description: "Flaked tender fish seasoned with aromatic herbs over crisp seasonal salad greens.",
-    image: "/images/fish-salad.jpg",
     tags: ["Fish"],
   },
   {
-    id: "salad-chicken",
+    id: "chicken-salad",
     name: "Chicken Salad",
     amharicName: "ቺክን ሳላድ",
     category: "salad",
     price: 750,
-    description: "Sliced grilled seasoned chicken breast layered over fresh mixed greens and herbs.",
-    image: "/images/chicken-salad.jpg",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
-    id: "salad-tuna",
+    id: "tuna-salad",
     name: "Tuna Salad",
     amharicName: "ቱና ሳላድ",
     category: "salad",
     price: 670,
-    description: "Flaked ocean tuna with diced bell peppers, sweet red onions, and lemon vinaigrette.",
-    image: "/images/tuna-salad.jpg",
-    tags: ["Fish", "Tuna"],
+    tags: ["Tuna", "Fish"],
   },
   {
-    id: "salad-fruit-punch",
+    id: "fruit-punch-salad",
     name: "Fruit Punch Salad",
     amharicName: "ፍሩት ሳላድ",
     category: "salad",
     price: 550,
-    description: "Vibrant tropical blend of freshly sliced seasonal Ethiopian fruits.",
     isVegetarian: true,
-    isFasting: true,
-    image: "/images/fruit-salad.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    tags: ["Vegetarian"],
   },
 
-  // ==========================================
-  // SIGNATURE DRINKS
-  // ==========================================
+  // ----------------------------------------------------
+  // SIGNATURE DRINKS (4 items)
+  // ----------------------------------------------------
   {
-    id: "drink-hibiscus",
+    id: "hibiscus",
     name: "Hibiscus",
-    amharicName: "ሃይቢስከስ",
     category: "signature-drinks",
     price: 440,
-    description: "Chilled ruby-red steeped hibiscus flower tea with subtle tart and sweet botanical notes.",
-    image: "/images/hibiscus.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop",
+    tags: [],
   },
   {
-    id: "drink-espresso-tonic",
+    id: "espresso-tonic",
     name: "Espresso Tonic",
-    amharicName: "ኤስፕሬሶ ቶኒክ",
     category: "signature-drinks",
     price: 350,
-    description: "Effervescent tonic water poured over fresh ice, crowned with rich single-origin Ethiopian espresso.",
-    image: "/images/espresso-tonic.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    tags: [],
   },
   {
-    id: "drink-cold-brew",
+    id: "cold-brew",
     name: "Cold Brew",
-    amharicName: "ኮልድ ብሩ",
     category: "signature-drinks",
     price: 440,
-    description: "Silky 16-hour slow cold-extracted Ethiopian highland coffee, low in acidity and deeply aromatic.",
-    image: "/images/cold-brew.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop",
+    tags: [],
   },
   {
-    id: "drink-special-iced-tea",
+    id: "special-iced-tea",
     name: "Special Iced Tea",
-    amharicName: "ስፔሻል አይስድ ቲ",
     category: "signature-drinks",
     price: 280,
-    description: "Signature cold brewed black tea with fresh garden mint leaves and zesty lemon twists.",
-    image: "/images/iced-tea.jpg",
-    tags: ["Vegetarian", "Fasting"],
+    tags: [],
   },
 ];
 
-export const RESTAURANT_INFO = {
-  name: "Afla Restaurant & Lounge",
-  tagline: "Modern Culinary Artistry • Addis Ababa",
-  phone: "+251 91 123 4567",
-  secondaryPhone: "+251 11 654 3210",
-  address: "Bole Medhanialem, Next to Edna Mall, Addis Ababa, Ethiopia",
-  googleMapsUrl: "https://maps.google.com/?q=Bole+Medhanialem+Addis+Ababa",
-  hours: {
-    weekdays: "8:00 AM – 11:30 PM",
-    weekends: "8:00 AM – 12:00 Midnight",
-  },
-  socials: {
-    instagram: "https://instagram.com/aflarestaurant",
-    telegram: "https://t.me/aflarestaurant",
-    tiktok: "https://tiktok.com/@aflarestaurant",
-    facebook: "https://facebook.com/aflarestaurant",
-  },
-};
+/**
+ * Formats ETB currency.
+ * Shows whole numbers without decimals (e.g., "ETB 4,885").
+ * Preserves two decimals for fractional amounts (e.g., "ETB 549.79").
+ */
+export function formatPrice(price: number): string {
+  if (price % 1 === 0) {
+    return `ETB ${price.toLocaleString("en-US")}`;
+  }
+  return `ETB ${price.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}

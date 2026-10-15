@@ -25,14 +25,17 @@ export function TableQrModal({ isOpen, onClose }: TableQrModalProps) {
 
   useEffect(() => {
     if (!isOpen) return;
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://aflamenu.com";
+    const origin =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : "https://aflamenu.com";
     const targetUrl = `${origin}/?table=${encodeURIComponent(tableNumber)}`;
 
     QRCode.toDataURL(targetUrl, {
       width: 320,
       margin: 2,
       color: {
-        dark: "#18181b",
+        dark: "#2B2118",
         light: "#ffffff",
       },
     })
@@ -41,7 +44,10 @@ export function TableQrModal({ isOpen, onClose }: TableQrModalProps) {
   }, [tableNumber, isOpen]);
 
   const handleCopyLink = () => {
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://aflamenu.com";
+    const origin =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : "https://aflamenu.com";
     const targetUrl = `${origin}/?table=${encodeURIComponent(tableNumber)}`;
     navigator.clipboard.writeText(targetUrl);
     setCopied(true);
@@ -62,96 +68,113 @@ export function TableQrModal({ isOpen, onClose }: TableQrModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md text-center p-6 sm:p-8">
-        <DialogHeader className="items-center">
-          <div className="p-3 rounded-full bg-orange-100 dark:bg-orange-950/50 text-orange-600 mb-2">
-            <QrCode className="w-6 h-6" />
+      <DialogContent className="sm:max-w-md bg-white border border-[#EEE9E2] p-5">
+        <DialogHeader className="text-left">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="p-2 rounded-full bg-[#F3EFE9] text-[#F28C28]">
+              <QrCode className="w-4 h-4" />
+            </div>
+            <DialogTitle className="text-base font-semibold text-[#2B2118]">
+              Generate Table QR Code
+            </DialogTitle>
           </div>
-          <DialogTitle className="text-xl font-serif">Table QR Generator</DialogTitle>
-          <DialogDescription>
-            Scan to view our digital menu directly on any smartphone
+          <DialogDescription className="text-xs text-[#7A6F66]">
+            Print or download table-specific QR codes for customer table stands.
           </DialogDescription>
         </DialogHeader>
 
-        {/* Table Selector */}
-        <div className="flex items-center justify-center gap-2 my-2">
-          <label htmlFor="table-select" className="text-xs font-semibold uppercase text-zinc-500">
-            Table:
-          </label>
-          <select
-            id="table-select"
-            value={tableNumber}
-            onChange={(e) => setTableNumber(e.target.value)}
-            className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-3 py-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
-            {Array.from({ length: 30 }, (_, i) => (
-              <option key={i + 1} value={`${i + 1}`}>
-                Table {i + 1}
-              </option>
-            ))}
-            <option value="VIP-1">VIP Lounge 1</option>
-            <option value="VIP-2">VIP Lounge 2</option>
-            <option value="Terrace">Terrace Bar</option>
-            <option value="Takeaway">Takeaway Counter</option>
-          </select>
-        </div>
-
-        {/* Printable Card Preview */}
-        <div className="my-4 p-5 rounded-2xl bg-white border border-zinc-200 shadow-md text-zinc-900 inline-flex flex-col items-center">
-          <AflaLogo size="sm" showText={true} className="mb-2" />
-          <div className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-3">
-            Table {tableNumber}
+        <div className="flex flex-col items-center gap-4 py-2">
+          {/* Table Selector */}
+          <div className="flex items-center gap-2 w-full">
+            <label
+              htmlFor="table-select"
+              className="text-xs font-medium text-[#7A6F66] shrink-0"
+            >
+              Select Table:
+            </label>
+            <input
+              id="table-select"
+              type="text"
+              value={tableNumber}
+              onChange={(e) => setTableNumber(e.target.value)}
+              placeholder="e.g. 1, 2, Terrace 4"
+              className="flex-1 rounded-xl border border-[#EEE9E2] bg-white px-3 py-1.5 text-xs text-[#2B2118] focus:outline-none focus:ring-2 focus:ring-[#F28C28]"
+            />
           </div>
 
-          {qrDataUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={qrDataUrl}
-              alt={`QR code for Table ${tableNumber}`}
-              className="w-48 h-48 rounded-lg shadow-xs"
-            />
-          ) : (
-            <div className="w-48 h-48 bg-zinc-100 rounded-lg animate-pulse" />
-          )}
-
-          <p className="text-[11px] text-zinc-500 mt-3 font-medium">
-            Point camera to view menu & specials
-          </p>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-2 mt-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopyLink}
-            className="gap-1.5 text-xs"
+          {/* Printable Preview Card */}
+          <div
+            id="printable-table-qr"
+            className="w-full max-w-[260px] bg-white rounded-2xl border-2 border-[#EEE9E2] p-5 text-center flex flex-col items-center shadow-xs"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied ? "Link Copied" : "Copy Link"}
-          </Button>
+            <AflaLogo size={42} />
+            <h4 className="font-semibold text-xs text-[#2B2118] mt-2">
+              AFLA Restaurant
+            </h4>
+            <p className="text-[9px] uppercase tracking-wider text-[#7A6F66]">
+              Scan for Digital Menu
+            </p>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            className="gap-1.5 text-xs"
-          >
-            <Download className="w-3.5 h-3.5" />
-            Download PNG
-          </Button>
+            <div className="my-3 p-2 bg-[#FAFAF8] rounded-xl border border-[#EEE9E2]">
+              {qrDataUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={qrDataUrl}
+                  alt={`QR Code for Table ${tableNumber}`}
+                  className="w-36 h-36 mx-auto rounded-lg"
+                />
+              ) : (
+                <div className="w-36 h-36 flex items-center justify-center text-xs text-[#7A6F66]">
+                  Generating...
+                </div>
+              )}
+            </div>
+
+            <div className="inline-block px-3 py-1 bg-[#F3EFE9] text-[#2B2118] rounded-full text-xs font-semibold">
+              Table {tableNumber}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="grid grid-cols-3 gap-2 w-full pt-1">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleCopyLink}
+              className="text-xs gap-1.5"
+            >
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
+              {copied ? "Copied" : "Copy"}
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownload}
+              className="text-xs gap-1.5"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Download
+            </Button>
+
+            <Button
+              variant="default"
+              size="sm"
+              onClick={handlePrint}
+              className="text-xs gap-1.5"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              Print
+            </Button>
+          </div>
         </div>
-
-        <Button
-          variant="primary-orange"
-          size="sm"
-          onClick={handlePrint}
-          className="w-full gap-2 mt-2 font-medium"
-        >
-          <Printer className="w-4 h-4" />
-          Print Table Stand
-        </Button>
       </DialogContent>
     </Dialog>
   );
 }
+
+export default TableQrModal;

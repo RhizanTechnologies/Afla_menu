@@ -1,60 +1,61 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Noto_Sans_Ethiopic } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const notoEthiopic = Noto_Sans_Ethiopic({
+  variable: "--font-ethiopic",
+  subsets: ["ethiopic"],
+  weight: ["400", "600"],
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#ea580c",
+  themeColor: "#FF6417",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
 export const metadata: Metadata = {
-  title: "Afla Restaurant & Lounge | Digital Menu (አፍላ ምናሌ)",
+  title: "AFLA Restaurant | PIZZA · BURGER · CHICKEN",
   description:
-    "Explore the delicious digital menu of Afla Restaurant in Addis Ababa. Featuring crispy fried chicken, gourmet burgers, stone-baked pizzas, fresh fish cutlets, and signature cold brews.",
-  keywords: [
-    "Afla Restaurant",
-    "Addis Ababa Menu",
-    "Ethiopian Food",
-    "Fried Chicken",
-    "Gourmet Burger",
-    "Bole Medhanialem",
-    "Stone Baked Pizza",
-    "Afla Menu",
-    "አፍላ ሬስቶራንት",
-  ],
+    "Official digital menu for AFLA Restaurant. Browse our selection of Pizza, Burger, Chicken, and more.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
-    title: "Afla Restaurant & Lounge | Digital Menu",
-    description:
-      "Handcrafted burgers, crispy fried chicken, stone-baked pizzas, and refreshing drinks at Afla Restaurant, Addis Ababa.",
-    url: "https://aflamenu.com",
-    siteName: "Afla Restaurant",
-    locale: "en_US",
+    title: "AFLA Restaurant | PIZZA · BURGER · CHICKEN",
+    description: "Official digital menu for AFLA Restaurant.",
     type: "website",
+    locale: "en_US",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Afla Restaurant & Lounge | Digital Menu",
-    description:
-      "View dishes, ingredients, prices, and dietary tags on the official Afla digital menu.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+};
+
+const jsonLdMenu = {
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  name: "AFLA Restaurant Digital Menu",
+  description: "Digital menu for AFLA Restaurant — PIZZA · BURGER · CHICKEN",
+  hasMenuSection: [
+    { "@type": "MenuSection", name: "Chicken" },
+    { "@type": "MenuSection", name: "Mixed Grill" },
+    { "@type": "MenuSection", name: "Burger" },
+    { "@type": "MenuSection", name: "Sandwich" },
+    { "@type": "MenuSection", name: "Shawarma Wrap" },
+    { "@type": "MenuSection", name: "Pasta & Rice" },
+    { "@type": "MenuSection", name: "Pizza" },
+    { "@type": "MenuSection", name: "Fish" },
+    { "@type": "MenuSection", name: "Salad" },
+    { "@type": "MenuSection", name: "Signature Drinks" },
+  ],
 };
 
 export default function RootLayout({
@@ -65,9 +66,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`light ${plusJakarta.variable} ${notoEthiopic.variable}`}
+      style={{ colorScheme: "light" }}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans selection:bg-orange-600 selection:text-white">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdMenu) }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col font-sans bg-[#FAF8F5] text-[#1F1A16] antialiased">
         {children}
       </body>
     </html>

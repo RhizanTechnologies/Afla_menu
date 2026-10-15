@@ -5,7 +5,6 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
     | "default"
-    | "destructive"
     | "outline"
     | "secondary"
     | "ghost"
@@ -17,29 +16,28 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] cursor-pointer";
+      "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6417] disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] cursor-pointer";
 
     const variantStyles = {
       default:
-        "bg-zinc-900 text-zinc-50 shadow-xs hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200",
+        "bg-[#FF6417] text-white hover:bg-[#E5550D] shadow-xs",
       "primary-orange":
-        "bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-md hover:from-orange-600 hover:to-amber-700 shadow-orange-500/20",
-      destructive:
-        "bg-red-500 text-white shadow-xs hover:bg-red-600 dark:hover:bg-red-600",
+        "bg-[#FF6417] text-white hover:bg-[#E5550D] shadow-xs",
       outline:
-        "border border-zinc-200 bg-transparent hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+        "border border-[#F0E9E1] bg-white text-[#1F1A16] hover:bg-[#FAF8F5] hover:border-[#FF6417]/50",
       secondary:
-        "bg-zinc-100 text-zinc-900 shadow-xs hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700",
+        "bg-[#FFF2E5] text-[#FF6417] hover:bg-[#FFE6CF] border border-[#FFDEC2]",
       ghost:
-        "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
-      link: "text-orange-600 underline-offset-4 hover:underline dark:text-orange-400",
+        "hover:bg-[#F4EFEA] text-[#1F1A16]",
+      link:
+        "text-[#FF6417] underline-offset-4 hover:underline",
     };
 
     const sizeStyles = {
-      default: "h-9 px-4 py-2",
-      sm: "h-8 rounded-md px-3 text-xs",
-      lg: "h-11 rounded-lg px-8 text-base",
-      icon: "h-9 w-9 p-0",
+      default: "min-h-[44px] px-4 py-2",
+      sm: "min-h-[36px] px-3 text-xs",
+      lg: "min-h-[48px] px-6 text-base",
+      icon: "min-h-[44px] min-w-[44px] p-0",
     };
 
     return (

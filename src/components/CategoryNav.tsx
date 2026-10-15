@@ -1,132 +1,95 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { CATEGORIES, MenuCategoryId, MENU_ITEMS } from "@/data/menu";
+import { CategoryInfo, MenuCategoryId } from "@/data/menu";
 import { cn } from "@/lib/utils";
-import {
-  Flame,
-  Sandwich,
-  Utensils,
-  Soup,
-  Pizza,
-  Fish,
-  Salad,
-  Coffee,
-} from "lucide-react";
 
 interface CategoryNavProps {
+  categories: CategoryInfo[];
   activeCategory: MenuCategoryId | "all";
-  onSelectCategory: (id: MenuCategoryId | "all") => void;
+  onSelectCategory: (id: MenuCategoryId) => void;
+  language: "en" | "am";
+  className?: string;
 }
 
-const CATEGORY_ICONS: Record<MenuCategoryId, React.ComponentType<{ className?: string }>> = {
-  chicken: Flame,
-  "mixed-grill": Flame,
-  burger: Sandwich,
-  sandwich: Utensils,
-  "shawarma-wrap": Utensils,
-  "pasta-rice": Soup,
-  pizza: Pizza,
-  fish: Fish,
-  salad: Salad,
-  "signature-drinks": Coffee,
+const CATEGORY_ICONS: Record<string, string> = {
+  chicken: "🍗",
+  "mixed-grill": "🥩",
+  burger: "🍔",
+  sandwich: "🥪",
+  shawarma: "🌯",
+  "pasta-rice": "🍝",
+  pizza: "🍕",
+  fish: "🐟",
+  salad: "🥗",
+  "signature-drinks": "🍹",
 };
 
 export function CategoryNav({
+  categories,
   activeCategory,
   onSelectCategory,
+  language,
+  className,
 }: CategoryNavProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const activePillRef = useRef<HTMLButtonElement>(null);
 
-  // Auto-scroll the active pill into view when it changes
+  // Auto-scroll the active pill into view smoothly without breaking left margin
   useEffect(() => {
-    if (!scrollContainerRef.current) return;
-    const activeEl = scrollContainerRef.current.querySelector(
-      `[data-category="${activeCategory}"]`
-    ) as HTMLElement;
-    if (activeEl) {
+    if (activePillRef.current && scrollContainerRef.current) {
       const container = scrollContainerRef.current;
+      const pill = activePillRef.current;
+
+      // If it's the very first category, keep it at the natural left padding
+      if (activeCategory === categories[0]?.id) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
       const scrollLeft =
-        activeEl.offsetLeft -
-        container.offsetWidth / 2 +
-        activeEl.offsetWidth / 2;
-      container.scrollTo({ left: scrollLeft, behavior: "smooth" });
+        pill.offsetLeft - container.offsetWidth / 2 + pill.offsetWidth / 2;
+      container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
     }
-  }, [activeCategory]);
+  }, [activeCategory, categories]);
 
   return (
     <nav
       aria-label="Menu Categories"
-      className="sticky top-0 z-30 w-full bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 py-2.5 transition-shadow"
+      className={cn(
+        "sticky top-15 z-30 w-full bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#F0E9E1] py-2",
+        className
+      )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div
-          ref={scrollContainerRef}
-          className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-0.5"
-          role="tablist"
-        >
-          {/* "All Menu" Pill */}
-          <button
-            role="tab"
-            aria-selected={activeCategory === "all"}
-            data-category="all"
-            onClick={() => onSelectCategory("all")}
-            className={cn(
-              "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-all shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
-              activeCategory === "all"
-                ? "bg-orange-600 text-white shadow-md shadow-orange-600/25 scale-[1.02]"
-                : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800"
-            )}
-          >
-            <span>All Dishes</span>
-            <span
+      <div
+        ref={scrollContainerRef}
+        className="flex items-center gap-2 overflow-x-auto no-scrollbar px-4 sm:px-6 max-w-6xl mx-auto scroll-smooth snap-x snap-mandatory scroll-pl-4 scroll-pr-4"
+      >
+        {categories.map((cat, index) => {
+          const isActive = activeCategory === cat.id;
+          const icon = CATEGORY_ICONS[cat.id] || "🍽️";
+          return (
+            <button
+              key={cat.id}
+              ref={isActive ? activePillRef : null}
+              onClick={() => onSelectCategory(cat.id)}
               className={cn(
-                "ml-1 text-[10px] px-1.5 py-0.2 rounded-full",
-                activeCategory === "all"
-                  ? "bg-white/20 text-white"
-                  : "bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
+                "snap-start shrink-0 inline-flex items-center gap-2 min-h-[40px] px-4 rounded-full text-xs sm:text-sm font-bold transition-all border cursor-pointer select-none",
+                isActive
+                  ? "bg-[#FF6417] text-white border-[#FF6417] shadow-[0_4px_12px_rgba(255,100,23,0.25)]"
+                  : "bg-white text-[#4A3E34] border-[#F0E9E1] hover:border-[#FF6417]/50 card-soft-shadow hover:text-[#1F1A16]"
               )}
             >
-              {MENU_ITEMS.length}
-            </span>
-          </button>
-
-          {CATEGORIES.map((cat) => {
-            const Icon = CATEGORY_ICONS[cat.id] || Utensils;
-            const count = MENU_ITEMS.filter((i) => i.category === cat.id).length;
-            const isSelected = activeCategory === cat.id;
-
-            return (
-              <button
-                key={cat.id}
-                role="tab"
-                aria-selected={isSelected}
-                data-category={cat.id}
-                onClick={() => onSelectCategory(cat.id)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-all shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
-                  isSelected
-                    ? "bg-orange-600 text-white shadow-md shadow-orange-600/25 scale-[1.02]"
-                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800"
-                )}
-              >
-                <Icon className="w-3.5 h-3.5 shrink-0" />
-                <span>{cat.name}</span>
-                <span
-                  className={cn(
-                    "ml-1 text-[10px] px-1.5 py-0.2 rounded-full",
-                    isSelected
-                      ? "bg-white/20 text-white"
-                      : "bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
-                  )}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+              <span className="text-sm leading-none" role="img" aria-hidden="true">
+                {icon}
+              </span>
+              <span>{language === "am" ? cat.amharicName : cat.name}</span>
+            </button>
+          );
+        })}
       </div>
     </nav>
   );
 }
+
+export default CategoryNav;
