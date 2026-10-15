@@ -28,7 +28,6 @@ import {
   Leaf,
   Share2,
   Check,
-  Info,
   Clock,
 } from "lucide-react";
 

@@ -7,6 +7,7 @@ import {
   CATEGORIES,
   MenuItem,
   MenuCategoryId,
+  DietaryTag,
 } from "@/data/menu";
 import { Header } from "@/components/Header";
 import { CategoryNav } from "@/components/CategoryNav";
@@ -18,7 +19,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { MenuSkeletonGrid } from "@/components/MenuSkeleton";
-import { Sparkles, Utensils, Flame, Coffee, Info, QrCode } from "lucide-react";
+import { Sparkles, QrCode } from "lucide-react";
 
 function MenuContent() {
   const searchParams = useSearchParams();
@@ -46,7 +47,7 @@ function MenuContent() {
         if (selectedTag === "Vegetarian" && !item.isVegetarian) return false;
         if (selectedTag === "Fasting" && !item.isFasting) return false;
         if (["Chicken", "Beef", "Fish", "Tuna"].includes(selectedTag)) {
-          if (!item.tags.includes(selectedTag as any)) return false;
+          if (!item.tags.includes(selectedTag as DietaryTag)) return false;
         }
       }
 
@@ -149,7 +150,7 @@ function MenuContent() {
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-semibold hover:bg-amber-500/25 transition-colors cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 fill-current text-amber-500" />
-              <span>Chef's Popular Picks</span>
+              <span>Chef&apos;s Popular Picks</span>
             </button>
           </div>
         </div>
@@ -167,7 +168,6 @@ function MenuContent() {
         <FilterBar
           selectedTag={selectedTag}
           onSelectTag={setSelectedTag}
-          activeFilterCount={selectedTag !== "all" ? 1 : 0}
           onClearFilters={handleResetFilters}
         />
 
@@ -184,12 +184,12 @@ function MenuContent() {
               </span>
               {searchQuery && (
                 <span>
-                  matching "<strong>{searchQuery}</strong>"
+                  matching &ldquo;<strong>{searchQuery}</strong>&rdquo;
                 </span>
               )}
               {selectedTag !== "all" && (
                 <span>
-                  tagged "<strong>{selectedTag}</strong>"
+                  tagged &ldquo;<strong>{selectedTag}</strong>&rdquo;
                 </span>
               )}
             </div>

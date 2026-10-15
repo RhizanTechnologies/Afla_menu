@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Sparkles, Leaf, Flame, Fish, Coffee, X } from "lucide-react";
+import { Sparkles, Leaf, Fish, X } from "lucide-react";
 
 export type FilterTag =
   | "all"
@@ -17,7 +17,6 @@ export type FilterTag =
 interface FilterBarProps {
   selectedTag: FilterTag;
   onSelectTag: (tag: FilterTag) => void;
-  activeFilterCount?: number;
   onClearFilters?: () => void;
 }
 
@@ -75,7 +74,6 @@ const FILTER_ITEMS: {
 export function FilterBar({
   selectedTag,
   onSelectTag,
-  activeFilterCount = 0,
   onClearFilters,
 }: FilterBarProps) {
   return (

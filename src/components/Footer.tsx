@@ -8,7 +8,6 @@ import {
   Phone,
   MapPin,
   ExternalLink,
-  Share2,
 } from "lucide-react";
 
 export function Footer() {

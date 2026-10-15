@@ -4,7 +4,7 @@ import React from "react";
 import { MenuItem, formatPrice } from "@/data/menu";
 import { Badge } from "@/components/ui/badge";
 import { MenuImage } from "@/components/MenuImage";
-import { Sparkles, Utensils, Flame, Leaf, Eye } from "lucide-react";
+import { Sparkles, Utensils, Leaf, Eye } from "lucide-react";
 
 interface MenuItemCardProps {
   item: MenuItem;

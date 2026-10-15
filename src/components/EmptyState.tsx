@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { UtensilsCrossed, RotateCcw, Search } from "lucide-react";
+import { UtensilsCrossed, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface EmptyStateProps {
@@ -28,13 +28,13 @@ export function EmptyState({
       <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-md mb-6 leading-relaxed">
         {searchQuery ? (
           <>
-            No items matched <span className="font-semibold text-zinc-800 dark:text-zinc-200">"{searchQuery}"</span>
+            No items matched <span className="font-semibold text-zinc-800 dark:text-zinc-200">&ldquo;{searchQuery}&rdquo;</span>
             {selectedTag !== "all" && (
               <> with tag <span className="font-semibold text-zinc-800 dark:text-zinc-200">{selectedTag}</span></>
             )}. Try searching for <span className="italic">chicken, burger, pizza, lasagna, tibs</span>, or clear filters.
           </>
         ) : (
-          <>No items found under the selected dietary filter. Try selecting "All Items" or exploring other categories.</>
+          <>No items found under the selected dietary filter. Try selecting &ldquo;All Items&rdquo; or exploring other categories.</>
         )}
       </p>
 
