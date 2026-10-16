@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MenuItem, formatPrice } from "@/data/menu";
+import { MenuItem, formatPrice, Language } from "@/data/menu";
 import { MenuImagePlaceholder } from "@/components/MenuImagePlaceholder";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -25,7 +25,7 @@ interface ProductDetailModalProps {
   item: MenuItem | null;
   isOpen: boolean;
   onClose: () => void;
-  language: "en" | "am";
+  language: Language;
   isDesktop?: boolean;
 }
 
@@ -39,6 +39,20 @@ export function ProductDetailModal({
   const [imageError, setImageError] = useState(false);
 
   if (!item) return null;
+
+  const title =
+    language === "am" && item.amharicName
+      ? item.amharicName
+      : language === "so" && item.somaliName
+      ? item.somaliName
+      : item.name;
+
+  const subtitle =
+    language === "en"
+      ? item.amharicName
+      : item.name !== title
+      ? item.name
+      : item.amharicName;
 
   const modalBody = (
     <div className="flex flex-col gap-4">
@@ -66,22 +80,42 @@ export function ProductDetailModal({
           {item.isPopular && (
             <Badge variant="popular" className="shadow-xs">
               <Sparkles className="w-3 h-3 fill-current" />
-              Popular
+              {language === "am"
+                ? "ተወዳጅ"
+                : language === "so"
+                ? "Caanka ah"
+                : "Popular"}
             </Badge>
           )}
           {item.isSpicy && (
             <Badge variant="spicy">
               <Flame className="w-3 h-3 fill-current" />
-              Spicy 🌶️
+              {language === "am"
+                ? "የሚቃጥል 🌶️"
+                : language === "so"
+                ? "Basbaas 🌶️"
+                : "Spicy 🌶️"}
             </Badge>
           )}
           {item.isVegetarian && (
             <Badge variant="vegetarian">
               <Leaf className="w-3 h-3" />
-              Vegetarian
+              {language === "am"
+                ? "አትክልት"
+                : language === "so"
+                ? "Qudaar"
+                : "Vegetarian"}
             </Badge>
           )}
-          {item.isFasting && <Badge variant="fasting">Fasting</Badge>}
+          {item.isFasting && (
+            <Badge variant="fasting">
+              {language === "am"
+                ? "የጾም"
+                : language === "so"
+                ? "Sooman"
+                : "Fasting"}
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -89,17 +123,15 @@ export function ProductDetailModal({
       <div className="flex flex-col gap-1">
         <div className="flex items-baseline justify-between gap-2">
           <h2 className="text-xl sm:text-2xl font-extrabold text-[#1F1A16] tracking-tight">
-            {item.name}
+            {title}
           </h2>
           <span className="text-xl sm:text-2xl font-black text-[#FF6417] shrink-0">
             {formatPrice(item.price)}
           </span>
         </div>
 
-        {item.amharicName && (
-          <p className="text-sm text-[#7A6F66] font-normal">
-            {item.amharicName}
-          </p>
+        {subtitle && (
+          <p className="text-sm text-[#7A6F66] font-normal">{subtitle}</p>
         )}
       </div>
 
@@ -135,7 +167,7 @@ export function ProductDetailModal({
           onClick={onClose}
           className="w-full py-3 rounded-2xl bg-[#FF6417] text-white hover:bg-[#E5550D] font-bold text-sm transition-all shadow-xs cursor-pointer"
         >
-          {language === "am" ? "ተመለስ" : "Close"}
+          {language === "am" ? "ተመለስ" : language === "so" ? "Xidh" : "Close"}
         </button>
       </div>
     </div>

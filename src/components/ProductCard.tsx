@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MenuItem, formatPrice } from "@/data/menu";
+import { MenuItem, formatPrice, Language } from "@/data/menu";
 import { MenuImagePlaceholder } from "@/components/MenuImagePlaceholder";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Flame, Leaf, Plus } from "lucide-react";
@@ -11,11 +11,25 @@ import { cn } from "@/lib/utils";
 interface ProductCardProps {
   item: MenuItem;
   onClick: () => void;
-  language: "en" | "am";
+  language: Language;
 }
 
 export function ProductCard({ item, onClick, language }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
+
+  const title =
+    language === "am" && item.amharicName
+      ? item.amharicName
+      : language === "so" && item.somaliName
+      ? item.somaliName
+      : item.name;
+
+  const subtitle =
+    language === "en"
+      ? item.amharicName
+      : item.name !== title
+      ? item.name
+      : item.amharicName;
 
   return (
     <article
@@ -63,24 +77,40 @@ export function ProductCard({ item, onClick, language }: ProductCardProps) {
             {item.isPopular && (
               <Badge variant="popular" className="text-[10px] shadow-xs">
                 <Sparkles className="w-2.5 h-2.5 fill-current" />
-                Popular
+                {language === "am"
+                  ? "ተወዳጅ"
+                  : language === "so"
+                  ? "Caanka ah"
+                  : "Popular"}
               </Badge>
             )}
             {item.isSpicy && (
               <Badge variant="spicy" className="text-[10px]">
                 <Flame className="w-2.5 h-2.5 fill-current" />
-                Spicy 🌶️
+                {language === "am"
+                  ? "የሚቃጥል 🌶️"
+                  : language === "so"
+                  ? "Basbaas 🌶️"
+                  : "Spicy 🌶️"}
               </Badge>
             )}
             {item.isVegetarian && (
               <Badge variant="vegetarian" className="text-[10px]">
                 <Leaf className="w-2.5 h-2.5" />
-                Veg
+                {language === "am"
+                  ? "አትክልት"
+                  : language === "so"
+                  ? "Qudaar"
+                  : "Veg"}
               </Badge>
             )}
             {item.isFasting && (
               <Badge variant="fasting" className="text-[10px]">
-                Fasting
+                {language === "am"
+                  ? "የጾም"
+                  : language === "so"
+                  ? "Sooman"
+                  : "Fasting"}
               </Badge>
             )}
           </div>
@@ -90,13 +120,13 @@ export function ProductCard({ item, onClick, language }: ProductCardProps) {
         <div className="flex flex-col flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <h3 className="font-extrabold text-[15px] sm:text-base text-[#1F1A16] leading-snug group-hover:text-[#FF6417] transition-colors line-clamp-2">
-              {item.name}
+              {title}
             </h3>
           </div>
 
-          {item.amharicName && (
+          {subtitle && (
             <p className="text-[11.5px] text-[#7A6F66] mt-0.5 font-medium line-clamp-1">
-              {item.amharicName}
+              {subtitle}
             </p>
           )}
 

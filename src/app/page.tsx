@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuCategoryId,
   DietaryTag,
+  Language,
 } from "@/data/menu";
 import { Header } from "@/components/Header";
 import { CategoryNav } from "@/components/CategoryNav";
@@ -42,12 +43,18 @@ const CATEGORY_ICONS: Record<string, string> = {
   "cold-drinks": "🍹",
 };
 
-const QUICK_FILTERS: { id: FilterOption; label: string; icon?: string }[] = [
-  { id: "All", label: "All" },
-  { id: "Popular", label: "Popular", icon: "⭐" },
-  { id: "Spicy", label: "Spicy", icon: "🌶️" },
-  { id: "Vegetarian", label: "Vegetarian", icon: "🥬" },
-  { id: "Fasting", label: "Fasting", icon: "🌱" },
+const QUICK_FILTERS: {
+  id: FilterOption;
+  en: string;
+  am: string;
+  so: string;
+  icon?: string;
+}[] = [
+  { id: "All", en: "All", am: "ሁሉም", so: "Dhammaan" },
+  { id: "Popular", en: "Popular", am: "ተወዳጅ", so: "Caanka ah", icon: "⭐" },
+  { id: "Spicy", en: "Spicy", am: "የሚቃጥል", so: "Basbaas", icon: "🌶️" },
+  { id: "Vegetarian", en: "Vegetarian", am: "አትክልት", so: "Qudaar", icon: "🥬" },
+  { id: "Fasting", en: "Fasting", am: "የጾም", so: "Sooman", icon: "🌱" },
 ];
 
 function MenuMain() {
@@ -55,12 +62,10 @@ function MenuMain() {
   const tableParam = searchParams.get("table");
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const [language, setLanguage] = useState<"en" | "am">("en");
+  const [language, setLanguage] = useState<Language>("en");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<FilterOption>("All");
-  const [activeCategory, setActiveCategory] = useState<MenuCategoryId | "all">(
-    CATEGORIES[0]?.id || "breakfast"
-  );
+  const [activeCategory, setActiveCategory] = useState<MenuCategoryId | "all">("all");
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
@@ -72,33 +77,24 @@ function MenuMain() {
     }
   }, [searchParams]);
 
-  // Scroll spy to update active category pill while scrolling
-  useEffect(() => {
-    if (searchQuery.trim() !== "" || selectedFilter !== "All") return;
+  // Categories to display: If activeCategory is "all", display all categories.
+  // If specific category is selected, display ONLY that category.
+  const displayedCategories = useMemo(() => {
+    if (activeCategory === "all") {
+      return CATEGORIES;
+    }
+    return CATEGORIES.filter((cat) => cat.id === activeCategory);
+  }, [activeCategory]);
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 180;
-      for (const cat of CATEGORIES) {
-        const section = document.getElementById(`section-${cat.id}`);
-        if (section) {
-          const top = section.offsetTop;
-          const height = section.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveCategory(cat.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [searchQuery, selectedFilter]);
-
-  // Filter items based on search query and dietary selection
+  // Filter items based on category, search query, and dietary selection
   const filteredItems = useMemo(() => {
     return MENU_ITEMS.filter((item) => {
-      // 1. Dietary filter
+      // 1. Category filter
+      if (activeCategory !== "all" && item.category !== activeCategory) {
+        return false;
+      }
+
+      // 2. Dietary filter
       if (selectedFilter !== "All") {
         if (selectedFilter === "Popular" && !item.isPopular) return false;
         if (selectedFilter === "Spicy" && !item.isSpicy) return false;
@@ -112,12 +108,15 @@ function MenuMain() {
         }
       }
 
-      // 2. Search query (matches name, amharic, description, side, ingredients, tags)
+      // 3. Search query (matches name, amharic, somali, description, side, ingredients, tags)
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchesName = item.name.toLowerCase().includes(q);
         const matchesAmharic = item.amharicName
           ? item.amharicName.toLowerCase().includes(q)
+          : false;
+        const matchesSomali = item.somaliName
+          ? item.somaliName.toLowerCase().includes(q)
           : false;
         const matchesDesc = item.description
           ? item.description.toLowerCase().includes(q)
@@ -131,6 +130,7 @@ function MenuMain() {
         return (
           matchesName ||
           matchesAmharic ||
+          matchesSomali ||
           matchesDesc ||
           matchesSide ||
           matchesCategory ||
@@ -140,39 +140,35 @@ function MenuMain() {
 
       return true;
     });
-  }, [searchQuery, selectedFilter]);
+  }, [activeCategory, searchQuery, selectedFilter]);
 
-  // Smooth scroll to a category section
-  const handleSelectCategory = (catId: MenuCategoryId) => {
+  // Handle category selection (switching category exclusively and scrolling smoothly)
+  const handleSelectCategory = (catId: MenuCategoryId | "all") => {
     setActiveCategory(catId);
-    if (searchQuery.trim() !== "" || selectedFilter !== "All") {
-      setSearchQuery("");
-      setSelectedFilter("All");
-    }
-    const section = document.getElementById(`section-${catId}`);
-    if (section) {
-      const yOffset = -130;
+    const target = document.getElementById("menu-content");
+    if (target) {
+      const yOffset = -120;
       const y =
-        section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
+        target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
     }
   };
 
   const handleResetFilters = () => {
     setSearchQuery("");
     setSelectedFilter("All");
+    setActiveCategory("all");
   };
 
-  const isFiltering = searchQuery.trim() !== "" || selectedFilter !== "All";
+  const isSearchingOrDietary =
+    searchQuery.trim() !== "" || selectedFilter !== "All";
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1F1A16]">
-      {/* 1. Sticky Header */}
+      {/* 1. Sticky Header with 3-way Language Switcher */}
       <Header
         language={language}
-        onToggleLanguage={() =>
-          setLanguage((prev) => (prev === "en" ? "am" : "en"))
-        }
+        onSelectLanguage={setLanguage}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
@@ -190,6 +186,8 @@ function MenuMain() {
               placeholder={
                 language === "am"
                   ? "ምግብ ወይም ግብዓት ይፈልጉ..."
+                  : language === "so"
+                  ? "Raadi pizza, burger, digaag..."
                   : "Search pizza, burger, chicken..."
               }
               className="w-full h-11 pl-10 pr-9 text-xs sm:text-sm bg-white text-[#1F1A16] placeholder:text-[#7A6F66]/80 border border-[#F0E9E1] focus:border-[#FF6417] rounded-2xl outline-none transition-all card-soft-shadow focus:ring-2 focus:ring-[#FF6417]/20"
@@ -198,7 +196,7 @@ function MenuMain() {
               <button
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#7A6F66] hover:text-[#1F1A16]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#7A6F66] hover:text-[#1F1A16] cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -221,7 +219,13 @@ function MenuMain() {
         {/* Active Filter notification pill */}
         {selectedFilter !== "All" && (
           <div className="flex items-center gap-1.5 mt-2">
-            <span className="text-[11px] text-[#7A6F66]">Filter:</span>
+            <span className="text-[11px] text-[#7A6F66]">
+              {language === "am"
+                ? "ማጣሪያ:"
+                : language === "so"
+                ? "Shaandheyn:"
+                : "Filter:"}
+            </span>
             <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#FF6417] bg-[#FFF2E5] border border-[#FFDEC2] px-2.5 py-0.5 rounded-full">
               {selectedFilter}
               <button
@@ -241,6 +245,8 @@ function MenuMain() {
         <div className="flex items-center gap-2">
           {QUICK_FILTERS.map((f) => {
             const isActive = selectedFilter === f.id;
+            const label =
+              language === "am" ? f.am : language === "so" ? f.so : f.en;
             return (
               <button
                 key={f.id}
@@ -252,7 +258,7 @@ function MenuMain() {
                 }`}
               >
                 {f.icon && <span>{f.icon}</span>}
-                <span>{f.label}</span>
+                <span>{label}</span>
               </button>
             );
           })}
@@ -264,7 +270,11 @@ function MenuMain() {
         >
           <SlidersHorizontal className="w-3.5 h-3.5 text-[#FF6417]" />
           <span>
-            {language === "am" ? "ተጨማሪ ማጣሪያ" : "More Filters"}
+            {language === "am"
+              ? "ተጨማሪ ማጣሪያ"
+              : language === "so"
+              ? "Shaandhooyin"
+              : "More Filters"}
           </span>
           {selectedFilter !== "All" && (
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF6417]" />
@@ -273,38 +283,48 @@ function MenuMain() {
       </div>
 
       {/* 3. Sticky Horizontally Scrollable Category Pills */}
-      {!isFiltering && (
-        <CategoryNav
-          categories={CATEGORIES}
-          activeCategory={activeCategory}
-          onSelectCategory={handleSelectCategory}
-          language={language}
-        />
-      )}
+      <CategoryNav
+        categories={CATEGORIES}
+        activeCategory={activeCategory}
+        onSelectCategory={handleSelectCategory}
+        language={language}
+      />
 
       {/* 4. Menu Items Section */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-4">
+      <main id="menu-content" className="flex-1 max-w-6xl w-full mx-auto px-4 py-4">
         {/* Table greeting if tableParam exists */}
         {tableParam && (
           <div className="mb-4 inline-flex items-center gap-1.5 px-3.5 py-1 bg-[#FFF2E5] border border-[#FFDEC2] text-[#FF6417] rounded-full text-xs font-bold">
-            <span>Table {tableParam} Dine-in</span>
+            <span>
+              {language === "am"
+                ? `ጠረጴዛ ${tableParam}`
+                : language === "so"
+                ? `Miiska ${tableParam}`
+                : `Table ${tableParam} Dine-in`}
+            </span>
           </div>
         )}
 
-        {/* If user is filtering or searching, show results list */}
-        {isFiltering ? (
+        {/* If user is searching or dietary filtering, show filtered items directly */}
+        {isSearchingOrDietary ? (
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-[#F0E9E1] mb-4">
               <span className="text-xs font-bold text-[#7A6F66]">
                 {language === "am"
                   ? `${filteredItems.length} የተገኙ ምግቦች`
+                  : language === "so"
+                  ? `${filteredItems.length} cunto ayaa la helay`
                   : `${filteredItems.length} dishes found`}
               </span>
               <button
                 onClick={handleResetFilters}
                 className="text-xs font-bold text-[#FF6417] hover:underline cursor-pointer"
               >
-                {language === "am" ? "ሁሉንም አሳይ" : "Clear filters"}
+                {language === "am"
+                  ? "ሁሉንም አሳይ"
+                  : language === "so"
+                  ? "Nadiifi shaandhada"
+                  : "Clear filters"}
               </button>
             </div>
 
@@ -329,13 +349,23 @@ function MenuMain() {
             )}
           </div>
         ) : (
-          /* Default Browse Mode: 1 col on mobile, 2 on tablet, 3 on desktop */
+          /* Default Browse Mode: Shows ONLY the selected category, or all categories if 'All' is selected */
           <div className="space-y-8">
-            {CATEGORIES.map((cat) => {
+            {displayedCategories.map((cat) => {
               const itemsInCat = MENU_ITEMS.filter(
                 (item) => item.category === cat.id
               );
               if (itemsInCat.length === 0) return null;
+
+              const title =
+                language === "am"
+                  ? cat.amharicName
+                  : language === "so"
+                  ? cat.somaliName || cat.name
+                  : cat.name;
+
+              const subtitle =
+                language === "en" ? cat.amharicName : cat.name;
 
               return (
                 <section
@@ -355,15 +385,22 @@ function MenuMain() {
                       </span>
                       <div>
                         <h2 className="text-base sm:text-xl font-extrabold text-[#1F1A16] tracking-tight">
-                          {language === "am" ? cat.amharicName : cat.name}
+                          {title}
                         </h2>
-                        <p className="text-[11px] text-[#7A6F66] font-medium leading-none mt-0.5">
-                          {language === "am" ? cat.name : cat.amharicName}
-                        </p>
+                        {subtitle && (
+                          <p className="text-[11px] text-[#7A6F66] font-medium leading-none mt-0.5">
+                            {subtitle}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white border border-[#F0E9E1] text-[#7A6F66] card-soft-shadow">
-                      {itemsInCat.length} {language === "am" ? "ምግቦች" : "items"}
+                      {itemsInCat.length}{" "}
+                      {language === "am"
+                        ? "ምግቦች"
+                        : language === "so"
+                        ? "cunto"
+                        : "items"}
                     </span>
                   </div>
 

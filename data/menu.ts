@@ -14,10 +14,13 @@ export type MenuCategoryId =
   | "hot-drinks"
   | "cold-drinks";
 
+export type Language = "en" | "am" | "so";
+
 export interface CategoryInfo {
   id: MenuCategoryId;
   name: string;
   amharicName: string;
+  somaliName: string;
   icon: string;
 }
 
@@ -35,6 +38,7 @@ export interface MenuItem {
   id: string;
   name: string;
   amharicName?: string;
+  somaliName?: string;
   category: MenuCategoryId;
   price: number;
   description?: string;
@@ -52,84 +56,98 @@ export const CATEGORIES: CategoryInfo[] = [
     id: "breakfast",
     name: "Break Fast",
     amharicName: "ቁርስ",
+    somaliName: "Quraac",
     icon: "🍳",
   },
   {
     id: "chicken",
     name: "Chicken",
     amharicName: "ዶሮ / ቸክን",
+    somaliName: "Digaag",
     icon: "🍗",
   },
   {
     id: "mixed-grill",
     name: "Mixed Grill",
     amharicName: "ሚክስድ ግሪል",
+    somaliName: "Hilib Isku Dhafan",
     icon: "🥩",
   },
   {
     id: "burger",
     name: "Burger",
     amharicName: "በርገር",
+    somaliName: "Burger",
     icon: "🍔",
   },
   {
     id: "sandwich",
     name: "Sandwich",
     amharicName: "ሳንድዊች",
+    somaliName: "Sandwij",
     icon: "🥪",
   },
   {
     id: "shawarma",
     name: "Shawarma Wrap",
     amharicName: "ሻዋርማ",
+    somaliName: "Duub Shawarma",
     icon: "🌯",
   },
   {
     id: "pasta-rice",
     name: "Pasta & Rice",
     amharicName: "ፓስታ እና ሩዝ",
+    somaliName: "Baasto & Bariis",
     icon: "🍝",
   },
   {
     id: "pizza",
     name: "Pizza",
     amharicName: "ፒዛ",
+    somaliName: "Pizza",
     icon: "🍕",
   },
   {
     id: "fish",
     name: "Fish",
     amharicName: "ዓሣ",
+    somaliName: "Malaay",
     icon: "🐟",
   },
   {
     id: "salad",
     name: "Salad",
     amharicName: "ሳላድ",
+    somaliName: "Salaad",
     icon: "🥗",
   },
   {
     id: "juice",
     name: "Fresh Juice",
     amharicName: "ትኩስ ጁስ",
+    somaliName: "Cabitaan Cusub",
     icon: "🧃",
   },
   {
     id: "shakes-smoothies",
     name: "Shakes & Smoothies",
     amharicName: "ሼክ እና ስሙዚ",
+    somaliName: "Shakes & Smoothies",
     icon: "🥤",
   },
   {
     id: "hot-drinks",
     name: "Hot Drinks",
     amharicName: "ትኩስ መጠጦች",
+    somaliName: "Cabitaannada Kulul",
     icon: "☕",
   },
   {
     id: "cold-drinks",
     name: "Cold Drinks & Mojitos",
     amharicName: "ቀዝቃዛ መጠጦች",
+    somaliName: "Cabitaannada Qabow",
     icon: "🍹",
   },
 ];
