@@ -401,6 +401,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1050,
     description: "Chicken, tomato, rosemary, soy sauce, side rice or salad",
     side: "Side rice or salad",
+    image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -420,6 +421,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1149,
     description: "Breast chicken, egg, flour, side fries or salad",
     side: "Side fries or salad",
+    image: "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -504,7 +506,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "burger",
     price: 720,
     description: "Grilled beef patty, slice cheese, lettuce, tomato, mayonnaise",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
@@ -514,6 +516,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "burger",
     price: 549.79,
     description: "Grilled beef patty, slice cheese, lettuce, BBQ sauce",
+    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
@@ -523,7 +526,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "burger",
     price: 575,
     description: "Grilled beef patty, slice cheese, lettuce, fresh tomato, mayonnaise",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
@@ -533,6 +536,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "burger",
     price: 545,
     description: "Double beef, salad, tomato, onion, pepper",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
 
@@ -546,6 +550,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "sandwich",
     price: 389,
     description: "Topped with fried egg, lettuce, fresh tomato, mayonnaise",
+    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=800&auto=format&fit=crop",
     tags: [],
   },
   {
@@ -555,7 +560,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "sandwich",
     price: 595,
     description: "Grilled chicken patty, special sauce, fresh tomato, lettuce, mayonnaise",
-    image: "https://images.unsplash.com/photo-1559466273-d95e72debaf8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken"],
   },
   {
@@ -565,6 +570,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "sandwich",
     price: 519,
     description: "Topped with fried egg, slice cheese, lettuce, fresh tomato, mayonnaise",
+    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=800&auto=format&fit=crop",
     tags: [],
   },
   {
@@ -585,6 +591,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "sandwich",
     price: 350,
     description: "Mixed cooked vegetable, lettuce, fresh tomato, cucumber",
+    image: "https://images.unsplash.com/photo-1619096252214-ef06c45683e3?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     isFasting: true,
     tags: ["Vegetarian", "Fasting"],
@@ -632,6 +639,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "shawarma",
     price: 570,
     description: "Light grilled tuna, fresh tomato, chili, onion",
+    image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?q=80&w=800&auto=format&fit=crop",
     tags: ["Tuna", "Fish"],
   },
   {
@@ -641,6 +649,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "shawarma",
     price: 630,
     description: "Grilled beef, fresh tomato, chili, onion",
+    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
@@ -650,6 +659,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "shawarma",
     price: 460,
     description: "Mixed well cooked vegetables",
+    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     isFasting: true,
     tags: ["Vegetarian", "Fasting"],
@@ -767,7 +777,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "pizza",
     price: 840,
     description: "Chicken topping, mozzarella cheese and beef slice",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken", "Beef"],
   },
   {
@@ -777,7 +787,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "pizza",
     price: 799,
     description: "BBQ sauce, mozzarella cheese, chicken topping and beef slice",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop",
     tags: ["Chicken", "Beef"],
   },
   {
@@ -787,7 +797,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "pizza",
     price: 685,
     description: "Tomato sauce, beef, oregano, mozzarella cheese",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop",
     tags: ["Beef"],
   },
   {
@@ -807,7 +817,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "pizza",
     price: 630,
     description: "Fasting sauce, mushroom, mixed vegetable, onion, oregano",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     isFasting: true,
     isSpicy: true,
@@ -820,7 +830,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "pizza",
     price: 760,
     description: "Fiery sauce, mushroom, onion, oregano, cheese",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     tags: ["Vegetarian"],
   },
@@ -848,7 +858,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 850,
     description: "Fried fish, vegetable oil, egg-coated flour, side rice or vegetable",
     side: "Side rice or vegetable",
-    image: "https://images.unsplash.com/photo-1725393325387-07f0d4951528?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+    image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=800&auto=format&fit=crop",
     tags: ["Fish"],
   },
   {
@@ -859,7 +869,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 895,
     description: "Tilapia fish, vegetable oil, breadcrumbs, flour, side rice or vegetable",
     side: "Side rice or vegetable",
-    image: "https://images.unsplash.com/photo-1725393325387-07f0d4951528?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+    image: "https://images.unsplash.com/photo-1535400255456-984241443b29?q=80&w=800&auto=format&fit=crop",
     tags: ["Fish"],
   },
 
@@ -895,7 +905,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "salad",
     price: 750,
     description: "Sliced grilled chicken breast served over a fresh garden vegetable salad",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?q=80&w=800&auto=format&fit=crop",
     isPopular: true,
     tags: ["Popular", "Chicken"],
   },
@@ -916,7 +926,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "salad",
     price: 550,
     description: "Freshly cut seasonal fruits served chilled with natural fruit juices",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1568158879083-c42860933ed7?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     isFasting: true,
     tags: ["Vegetarian", "Fasting"],
@@ -969,7 +979,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "juice",
     price: 280,
     description: "Silky, creamy fresh avocado blend topped with a splash of lime",
-    image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1601039641847-7857b994d704?q=80&w=800&auto=format&fit=crop",
     isVegetarian: true,
     isFasting: true,
     tags: ["Vegetarian", "Fasting"],
