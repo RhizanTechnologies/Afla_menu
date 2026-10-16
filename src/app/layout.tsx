@@ -45,6 +45,7 @@ const jsonLdMenu = {
   name: "AFLA Restaurant Digital Menu",
   description: "Digital menu for AFLA Restaurant — PIZZA · BURGER · CHICKEN",
   hasMenuSection: [
+    { "@type": "MenuSection", name: "Break Fast" },
     { "@type": "MenuSection", name: "Chicken" },
     { "@type": "MenuSection", name: "Mixed Grill" },
     { "@type": "MenuSection", name: "Burger" },
@@ -54,7 +55,10 @@ const jsonLdMenu = {
     { "@type": "MenuSection", name: "Pizza" },
     { "@type": "MenuSection", name: "Fish" },
     { "@type": "MenuSection", name: "Salad" },
-    { "@type": "MenuSection", name: "Signature Drinks" },
+    { "@type": "MenuSection", name: "Fresh Juice" },
+    { "@type": "MenuSection", name: "Shakes & Smoothies" },
+    { "@type": "MenuSection", name: "Hot Drinks" },
+    { "@type": "MenuSection", name: "Cold Drinks & Mojitos" },
   ],
 };
 

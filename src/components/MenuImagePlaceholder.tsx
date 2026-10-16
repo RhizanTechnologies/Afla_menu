@@ -33,6 +33,8 @@ export function MenuImagePlaceholder({
     const iconColor = "text-[#A89F95]";
 
     switch (category) {
+      case "breakfast":
+        return <UtensilsCrossed className={`${sizeClasses} ${iconColor}`} />;
       case "chicken":
         return <UtensilsCrossed className={`${sizeClasses} ${iconColor}`} />;
       case "mixed-grill":
@@ -49,7 +51,11 @@ export function MenuImagePlaceholder({
         return <Fish className={`${sizeClasses} ${iconColor}`} />;
       case "salad":
         return <Salad className={`${sizeClasses} ${iconColor}`} />;
-      case "signature-drinks":
+      case "juice":
+      case "shakes-smoothies":
+      case "cold-drinks":
+        return <Coffee className={`${sizeClasses} ${iconColor}`} />;
+      case "hot-drinks":
         return <Coffee className={`${sizeClasses} ${iconColor}`} />;
       default:
         return <Sparkles className={`${sizeClasses} ${iconColor}`} />;

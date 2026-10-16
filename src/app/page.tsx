@@ -26,6 +26,7 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
 const CATEGORY_ICONS: Record<string, string> = {
+  breakfast: "🍳",
   chicken: "🍗",
   "mixed-grill": "🥩",
   burger: "🍔",
@@ -35,7 +36,10 @@ const CATEGORY_ICONS: Record<string, string> = {
   pizza: "🍕",
   fish: "🐟",
   salad: "🥗",
-  "signature-drinks": "🍹",
+  juice: "🧃",
+  "shakes-smoothies": "🥤",
+  "hot-drinks": "☕",
+  "cold-drinks": "🍹",
 };
 
 const QUICK_FILTERS: { id: FilterOption; label: string; icon?: string }[] = [
@@ -55,7 +59,7 @@ function MenuMain() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<FilterOption>("All");
   const [activeCategory, setActiveCategory] = useState<MenuCategoryId | "all">(
-    "chicken"
+    CATEGORIES[0]?.id || "breakfast"
   );
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);

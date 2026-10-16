@@ -13,6 +13,7 @@ interface CategoryNavProps {
 }
 
 const CATEGORY_ICONS: Record<string, string> = {
+  breakfast: "🍳",
   chicken: "🍗",
   "mixed-grill": "🥩",
   burger: "🍔",
@@ -22,7 +23,10 @@ const CATEGORY_ICONS: Record<string, string> = {
   pizza: "🍕",
   fish: "🐟",
   salad: "🥗",
-  "signature-drinks": "🍹",
+  juice: "🧃",
+  "shakes-smoothies": "🥤",
+  "hot-drinks": "☕",
+  "cold-drinks": "🍹",
 };
 
 export function CategoryNav({
